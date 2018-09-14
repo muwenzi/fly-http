@@ -1,0 +1,15 @@
+{
+  "extends": [ "standard"],
+  "env": {
+    "browser": true,
+    "es6": true,
+    "jest": true
+  },
+  "globals": {
+    spyOn: true,
+    jasmine: true
+  },
+  "rules": {
+    "prefer-promise-reject-errors": "off"
+  }
+}
