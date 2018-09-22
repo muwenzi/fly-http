@@ -105,7 +105,7 @@ describe('request', function () {
         .get()
 
       let headers = Fly.prototype._sendRequest.calls.mostRecent().args[3]
-      expect(headers.accept).toBe('application/json')
+      expect(headers['Accept']).toBe('application/json')
     })
 
     it('should be set to "text/plain" when calling asText().', function () {
@@ -115,7 +115,7 @@ describe('request', function () {
         .get()
 
       let headers = Fly.prototype._sendRequest.calls.mostRecent().args[3]
-      expect(headers.accept).toBe('text/plain')
+      expect(headers['Accept']).toBe('text/plain')
     })
 
     it('should be set to "text/xml" when calling asXML().', function () {
@@ -125,7 +125,7 @@ describe('request', function () {
         .get()
 
       let headers = Fly.prototype._sendRequest.calls.mostRecent().args[3]
-      expect(headers.accept).toBe('text/xml')
+      expect(headers['Accept']).toBe('text/xml')
     })
   })
 
@@ -299,5 +299,14 @@ describe('request', function () {
 
       expect(Fly.prototype._sendRequest.calls.count()).toBe(0)
     })
+  })
+  it('should apeend form data', function () {
+    const fieldName = 'fieldName'
+    const fieldValue = 'fieldValue'
+    const instance = fly.append(fieldName, fieldValue)
+
+    expect(instance._formData.length).toEqual(1)
+    expect(instance._formData[0][0]).toEqual(fieldName)
+    expect(instance._formData[0][1]).toEqual(fieldValue)
   })
 })

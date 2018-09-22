@@ -15,9 +15,6 @@ FlyBrowser.clearCache = function () {
 
 FlyBrowser.prototype = Object.create(FlyBase.prototype)
 
-FlyBrowser.prototype.patch = function () {
-  throw new Error('PATCH is not yet supported in browser requests.')
-}
 /**
  * Download GET request as file.
  * @param filename
@@ -26,7 +23,7 @@ FlyBrowser.prototype.patch = function () {
 FlyBrowser.prototype.download = function (filename) {
   console.warn('Browser does not support dowload yet.')
   // this._downloadAsFilename = filename || this._path[this._path.length - 1]
-  // return this.header('content-type', 'application/octet-stream').send('GET')
+  // return this.header('Content-Type', 'application/octet-stream').send('GET')
 }
 
 FlyBrowser.prototype._sendRequest = function (url, method, body, headers) {
@@ -48,28 +45,30 @@ FlyBrowser.prototype._sendRequest = function (url, method, body, headers) {
     })
 }
 
-FlyBrowser.prototype.abort = function () {
-  this._xhr.onreadystatechange = null
-  return this._xhr.abort()
-}
-
 FlyBrowser.prototype._browserRequest = function (url, method, body, headers) {
   let me = this
   return new Promise(function (resolve, reject) {
+    let form
     const config = {
       credentials: 'same-origin',
       method: method,
       headers: headers
     }
-    if (body) {
-      config.body = body
+    if (me._formData.length) {
+      form = new FormData()
+      me._formData.forEach(function (formFieldArguments) {
+        form.append.apply(form, formFieldArguments)
+      })
     }
-    me._xhr = fetch(url, config)
+    if (form || body) {
+      config.body = form || body
+    }
+    me._xhr = window.fetch(url, config)
       .then(function (res) {
         let p
-        if (res.headers.get('content-type').indexOf('application/json') !== -1) {
+        if (res.headers.get('Content-Type').indexOf('application/json') !== -1) {
           p = res.json()
-        } else if (res.headers.get('content-type').indexOf('application/octet-stream') !== -1) {
+        } else if (res.headers.get('Content-Type').indexOf('application/octet-stream') !== -1) {
           console.warn('Browser does not support dowload yet.')
           p = res.text()
         } else {

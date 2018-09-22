@@ -8,9 +8,10 @@ function FlyBase () {
   this._path = []
   this._params = {}
   this._headers = {
-    'content-type': 'application/json',
-    'accept': 'application/json'
+    'Content-Type': 'application/json',
+    'Accept': 'application/json'
   }
+  this._formData = []
 }
 
 let RequestCacheMap = {}
@@ -28,6 +29,7 @@ FlyBase.prototype = {
   _external: null,
   _beforeSend: [],
   _processData: true,
+  _formData: null,
   /**
    * Add query parameter to request url.
    * @param key {String}
@@ -48,9 +50,19 @@ FlyBase.prototype = {
     return this
   },
   /**
+   * Append formData params. Cancel body params for browser calls.
+   * @return {RequestBuilder}
+   */
+  append: function () {
+    if (arguments.length) {
+      this._formData.push(arguments)
+    }
+    return this
+  },
+  /**
    * Callback that gets invoked with string url before sending.
    * Note: It can only change headers and body of the request.
-   * @param callback Called with arguments (method, url, body) and "this" is this RequestBuilder
+   * @param callback Called with arguments (method, url, body) and "this" is this FlyBase
    * @returns {FlyBase}
    */
   beforeSend: function (callback) {
@@ -76,7 +88,7 @@ FlyBase.prototype = {
     return this
   },
   /**
-   * Add non-encoded path segment to request url
+   * Add non-encoded path segment to request url.
    * @param {String|Int} path
    * @return {FlyBase}
    */
@@ -98,11 +110,11 @@ FlyBase.prototype = {
   },
   /**
    * Set the content type of the body.
-   * @param contentType
+   * @param {String} contentType
    * @returns {FlyBase}
    */
   contentType: function (contentType) {
-    this._headers['content-type'] = contentType
+    this._headers['Content-Type'] = contentType
     return this
   },
   /**
@@ -124,23 +136,23 @@ FlyBase.prototype = {
    * @param {String} acceptType
    * @returns {FlyBase}
    */
-  accepts: function (acceptType) {
-    this._headers.accept = acceptType
+  accept: function (acceptType) {
+    this._headers['Accept'] = acceptType
     return this
   },
   /**
-   * Convenience method for getting plain text response
+   * Convenience method for getting plain text response.
    * @returns {FlyBase}
    */
   asText: function () {
-    return this.accepts('text/plain')
+    return this.accept('text/plain')
   },
   /**
-   * Convenience method for getting XML response
+   * Convenience method for getting XML response.
    * @returns {FlyBase}
    */
   asXML: function () {
-    return this.accepts('text/xml')
+    return this.accept('text/xml')
   },
   /**
    * Return a promise for the response (including status code and headers), rather than for just the response data.
@@ -151,7 +163,7 @@ FlyBase.prototype = {
     return this
   },
   /**
-   * Makes this request cache for ttl miliseconds
+   * Makes this request cache for ttl milliseconds.
    * @param {Number} [ttl=forever]
    * @returns {FlyBase}
    */
@@ -183,14 +195,6 @@ FlyBase.prototype = {
    */
   get: function () {
     return this.send('GET', null)
-  },
-
-  /**
-   * Send GET request and get data of response.
-   * @return {Promise}
-   */
-  getData: function () {
-    return this.send('GET', null).then(response => response.data)
   },
   /**
    * Send PATCH request.
@@ -231,14 +235,6 @@ FlyBase.prototype = {
     return this.send('HEAD', null)
   },
   /**
-   * Alias for delete.
-   * @return {Promise}
-   */
-  del: function () {
-    return this.delete.apply(this, arguments)
-  },
-
-  /**
    * Send request.
    *
    * @param {String} method HTTP method.
@@ -248,7 +244,7 @@ FlyBase.prototype = {
   send: function (method, body) {
     let url = buildUrl(this._path, this._params)
 
-    if (body && this._headers['content-type'] === 'application/json') {
+    if (body && this._headers['Content-Type'] === 'application/json') {
       body = JSON.stringify(body)
     }
 
@@ -291,10 +287,6 @@ FlyBase.prototype = {
     }
 
     return out
-  },
-
-  getBuiltUrl: function () {
-    return buildUrl(this._path, this._params)
   },
 
   /**

@@ -12,12 +12,12 @@ const createInstanceMethods = [
   'contentType',
   'withText',
   'withJson',
-  'accepts',
+  'accept',
   'asText',
   'asXML',
   'asFormattedResponse',
   'cache',
-  'processData'
+  'append'
 ]
 
 const createInstance = () => {

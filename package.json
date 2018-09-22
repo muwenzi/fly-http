@@ -1,5 +1,5 @@
 {
-  "name": "fly.js",
+  "name": "fly-http",
   "version": "0.0.0",
   "description": "Chaining and declarative HTTP client based on the browser Fetch API",
   "main": "index.js",
@@ -34,7 +34,7 @@
   },
   "keywords": [
     "fly",
-    "fly.js",
+    "http",
     "http",
     "rest",
     "request",
