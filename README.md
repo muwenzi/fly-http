@@ -3,7 +3,7 @@
     <br>
     <br>
     <br>
-    <img width="180" src="https://user-images.githubusercontent.com/12554487/45917080-caba8180-bea2-11e8-8e1b-f0e27f478883.png" alt="fly logo">
+    <img width="200" src="https://user-images.githubusercontent.com/12554487/45917080-caba8180-bea2-11e8-8e1b-f0e27f478883.png" alt="fly logo">
     <br>
     <br>
     <br>
@@ -54,38 +54,38 @@ import fly from 'fly-http'
 [Online API Docs][online-api-docs]
 
 - PATH
-  - **path**(path: string | number)
-  - **p**(path: string | number)
-  - **pathRaw**(path: string | number)
+  - **[path][path-url]**(path: string | number)
+  - **[p][p-url]**(path: string | number)
+  - **[pathRaw][pathRaw-url]**(path: string | number)
 - QUERY
-  - **query**(key: string, value: string | number | boolean | array)
-  - **q**(key: string, value: string | number | boolean | array)
-  - **queryAll**
+  - **[query][query-url]**(key: string, value: string | number | boolean | array)
+  - **[q][q-url]**(key: string, value: string | number | boolean | array)
+  - **[queryAll][queryAll-url]**(params: object)
 - HEADER
-  - **header**
-  - **contentType**
-  - **withText**
-  - **withJson**
-  - **accepts**
-  - **asText**
-  - **asXML**
+  - **[header][header-url]**(name: string, val: string | number | boolean)
+  - **[content][content-url]**(contentType: string)
+  - **[withText][withText-url]**()
+  - **[withJson][withJson-url]**()
+  - **[accept][accept-url]**(acceptType: string)
+  - **[asText][asText-url]**()
+  - **[asXML][asXML-url]**()
 - FORM
-  - **append**
+  - **[append][append-url]**(name: string, value: string | Blob, fileName?: string)
 - HTTP METHODS
-  - **get**
-  - **patch**
-  - **post**
-  - **put**
-  - **head**
-  - **delete**
-  - **send**
+  - **[send][send-url]**(method: string, body: any)
+  - **[get][get-url]**()
+  - **[post][post-url]**(body: any)
+  - **[put][put-url]**(body: any)
+  - **[patch][patch-url]**(body: any)
+  - **[head][head-url]**()
+  - **[delete][delete-url]**()
 - CACHE
-  - **cache**
-  - **clearCache**
+  - **[cache][cache-url]**(ttl: number)
+  - **[clearCache][clearCache-url]**()
 - OTHER
-  - **beforeSend**
-  - **wrapResponse**
-  - **download**
+  - **[beforeSend][beforeSend-url]**(callback: func)
+  - **[enrichResponse][enrichResponse-url]**()
+  - **[download][download-url]**(fileName?: string)
 
 ## Changelog
 
@@ -105,3 +105,29 @@ MIT © [Kimi Gao](https://github.com/muwenzi)
 [license-image]: https://img.shields.io/github/license/muwenzi/fly-http.js.svg?style=flat-square
 [changelog-url]: https://github.com/muwenzi/fly-http.js/blob/master/CHANGELOG.md
 [online-api-docs]: https://fly-http.gitbook.io/api
+[path-url]: https://fly-http.gitbook.io/api/path/path
+[p-url]: https://fly-http.gitbook.io/api/path/p
+[pathRaw-url]: https://fly-http.gitbook.io/api/path/pathraw
+[query-url]: https://fly-http.gitbook.io/api/query/query
+[q-url]: https://fly-http.gitbook.io/api/query/q
+[queryAll-url]: https://fly-http.gitbook.io/api/query/queryAll
+[header-url]: https://fly-http.gitbook.io/api/header/header
+[content-url]: https://fly-http.gitbook.io/api/header/content
+[withText-url]: https://fly-http.gitbook.io/api/header/withText
+[withJson-url]: https://fly-http.gitbook.io/api/header/withJson
+[accept-url]: https://fly-http.gitbook.io/api/header/accept
+[asText-url]: https://fly-http.gitbook.io/api/header/asText
+[asXML-url]: https://fly-http.gitbook.io/api/header/asXML
+[append-url]: https://fly-http.gitbook.io/api/form/append
+[send-url]: https://fly-http.gitbook.io/api/http-methods/send
+[get-url]: https://fly-http.gitbook.io/api/http-methods/get
+[post-url]: https://fly-http.gitbook.io/api/http-methods/post
+[put-url]: https://fly-http.gitbook.io/api/http-methods/put
+[patch-url]: https://fly-http.gitbook.io/api/http-methods/patch
+[head-url]: https://fly-http.gitbook.io/api/http-methods/head
+[delete-url]: https://fly-http.gitbook.io/api/http-methods/delete
+[cache-url]: https://fly-http.gitbook.io/api/cache/cache
+[clearCache-url]: https://fly-http.gitbook.io/api/cache/clearCache
+[beforeSend-url]: https://fly-http.gitbook.io/api/other/beforesend
+[enrichResponse-url]: https://fly-http.gitbook.io/api/other/enrichResponse
+[download-url]: https://fly-http.gitbook.io/api/other/download
