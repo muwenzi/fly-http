@@ -25,6 +25,7 @@ FlyBase.prototype = {
   _params: null,
   _headers: null,
   _raw: false,
+  _download: false,
   _cache: null,
   _external: null,
   _beforeSend: [],
@@ -33,7 +34,7 @@ FlyBase.prototype = {
   /**
    * Add query parameter to request url.
    * @param key {String}
-   * @param value {String|Number|Boolean}
+   * @param value {String|Number|Boolean|Array}
    * @return {FlyBase}
    */
   query: function (key, value) {
@@ -51,7 +52,7 @@ FlyBase.prototype = {
   },
   /**
    * Append formData params. Cancel body params for browser calls.
-   * @return {RequestBuilder}
+   * @return {FlyBase}
    */
   append: function () {
     if (arguments.length) {
@@ -113,7 +114,7 @@ FlyBase.prototype = {
    * @param {String} contentType
    * @returns {FlyBase}
    */
-  contentType: function (contentType) {
+  content: function (contentType) {
     this._headers['Content-Type'] = contentType
     return this
   },
@@ -122,14 +123,14 @@ FlyBase.prototype = {
    * @returns {FlyBase}
    */
   withText: function () {
-    return this.contentType('text/plain')
+    return this.content('text/plain')
   },
   /**
    * Convenience method for sending data as json.
    * @returns {FlyBase}
    */
   withJson: function () {
-    return this.contentType('application/json')
+    return this.content('application/json')
   },
   /**
    * Set the Accept header.
@@ -158,7 +159,7 @@ FlyBase.prototype = {
    * Return a promise for the response (including status code and headers), rather than for just the response data.
    * @returns {FlyBase}
    */
-  asFormattedResponse: function () {
+  enrichResponse: function () {
     this._raw = true
     return this
   },

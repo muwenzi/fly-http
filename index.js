@@ -15,7 +15,7 @@ const createInstanceMethods = [
   'accept',
   'asText',
   'asXML',
-  'asFormattedResponse',
+  'enrichResponse',
   'cache',
   'append'
 ]
@@ -31,5 +31,7 @@ const createInstance = () => {
   }
   return fly
 }
+
+export const clearCache = Fly.clearCache
 
 export default createInstance()

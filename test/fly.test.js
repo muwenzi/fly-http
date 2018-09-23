@@ -25,10 +25,10 @@ describe('response handling', () => {
     })
   })
 
-  it('with asFormattedResponse() should return a promise for the normalized response data.', function (done) {
+  it('with enrichResponse() should return a promise for the normalized response data.', function (done) {
     let request = fly
       .p('hest')
-      .asFormattedResponse()
+      .enrichResponse()
       .get()
 
     respond({ pony: true }, 200, { 'x-pony': 'Yes' })
