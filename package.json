@@ -47,7 +47,9 @@
     "url": "https://github.com/muwenzi/http-chain/issues"
   },
   "homepage": "https://github.com/muwenzi/http-chain#readme",
-  "dependencies": {},
+  "dependencies": {
+    "file-saver": "^1.3.8"
+  },
   "devDependencies": {
     "babel-preset-env": "^1.7.0",
     "commitizen": "^2.10.1",

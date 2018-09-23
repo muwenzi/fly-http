@@ -1,4 +1,6 @@
 import FlyBase from './Fly.base'
+import FileSaver from 'file-saver'
+import util from './util'
 
 /**
  * RequestBuilder for the browser.
@@ -20,10 +22,14 @@ FlyBrowser.prototype = Object.create(FlyBase.prototype)
  * @param filename
  * @returns {Promise}
  */
-FlyBrowser.prototype.download = function (filename) {
-  console.warn('Browser does not support dowload yet.')
-  // this._downloadAsFilename = filename || this._path[this._path.length - 1]
-  // return this.header('Content-Type', 'application/octet-stream').send('GET')
+FlyBrowser.prototype.download = function (fileName) {
+  this._download = true
+  this._downloadAsFilename = fileName
+  if (!fileName) {
+    const pathArray = this._path[this._path.length - 1].split('/')
+    this._downloadDefaultFilename = pathArray[pathArray.length - 1]
+  }
+  return this.send('GET')
 }
 
 FlyBrowser.prototype._sendRequest = function (url, method, body, headers) {
@@ -68,15 +74,17 @@ FlyBrowser.prototype._browserRequest = function (url, method, body, headers) {
         let p
         if (res.headers.get('Content-Type').indexOf('application/json') !== -1) {
           p = res.json()
-        } else if (res.headers.get('Content-Type').indexOf('application/octet-stream') !== -1) {
-          console.warn('Browser does not support dowload yet.')
-          p = res.text()
+        } else if (me._download) {
+          p = res.blob()
         } else {
           p = res.text()
         }
         p.then(function (data) {
           res.data = data === undefined ? null : data
           if (res.ok) {
+            if (me._download) {
+              FileSaver.saveAs(data, me._downloadAsFilename || util.getHeaderFilename(res.headers) || me._downloadDefaultFilename)
+            }
             resolve(res)
           } else {
             reject(res)
