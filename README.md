@@ -95,15 +95,15 @@ import fly from 'fly-http'
 
 MIT © [Kimi Gao](https://github.com/muwenzi)
 
-[travis-url]: https://travis-ci.org/muwenzi/fly-http.js
-[travis-image]: https://img.shields.io/travis/muwenzi/fly-http.js/master.svg?style=flat-square
-[npm-version-url]: https://www.npmjs.com/package/fly-http.js
-[npm-version-image]: https://img.shields.io/npm/v/fly-http.js.svg?style=flat-square
-[npm-downloads-url]: https://www.npmjs.com/package/fly-http.js
-[npm-downloads-image]: https://img.shields.io/npm/dt/fly-http.js.svg?style=flat-square
-[license-url]: https://github.com/muwenzi/fly-http.js/blob/master/LICENSE
-[license-image]: https://img.shields.io/github/license/muwenzi/fly-http.js.svg?style=flat-square
-[changelog-url]: https://github.com/muwenzi/fly-http.js/blob/master/CHANGELOG.md
+[travis-url]: https://travis-ci.org/muwenzi/fly-http
+[travis-image]: https://img.shields.io/travis/muwenzi/fly-http/master.svg?style=flat-square
+[npm-version-url]: https://www.npmjs.com/package/fly-http
+[npm-version-image]: https://img.shields.io/npm/v/fly-http.svg?style=flat-square
+[npm-downloads-url]: https://www.npmjs.com/package/fly-http
+[npm-downloads-image]: https://img.shields.io/npm/dt/fly-http.svg?style=flat-square
+[license-url]: https://github.com/muwenzi/fly-http/blob/master/LICENSE
+[license-image]: https://img.shields.io/github/license/muwenzi/fly-http.svg?style=flat-square
+[changelog-url]: https://github.com/muwenzi/fly-http/blob/master/CHANGELOG.md
 [online-api-docs]: https://fly-http.gitbook.io/api
 [path-url]: https://fly-http.gitbook.io/api/path/path
 [p-url]: https://fly-http.gitbook.io/api/path/p

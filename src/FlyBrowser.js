@@ -1,10 +1,10 @@
-import FlyBase from './Fly.base'
+import FlyBase from './FlyBase'
 import FileSaver from 'file-saver'
-import util from './util'
+import utils from './utils'
 
 /**
- * RequestBuilder for the browser.
- * @extends Request
+ * FlyBrowser.
+ * @extends FlyBase
  * @constructor
  */
 function FlyBrowser () {
@@ -83,7 +83,10 @@ FlyBrowser.prototype._browserRequest = function (url, method, body, headers) {
           res.data = data === undefined ? null : data
           if (res.ok) {
             if (me._download) {
-              FileSaver.saveAs(data, me._downloadAsFilename || util.getHeaderFilename(res.headers) || me._downloadDefaultFilename)
+              FileSaver.saveAs(data,
+                me._downloadAsFilename ||
+                utils.getHeaderFilename(res.headers) ||
+                me._downloadDefaultFilename)
             }
             resolve(res)
           } else {

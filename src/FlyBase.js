@@ -1,4 +1,4 @@
-import util from './util'
+import util from './utils'
 
 /**
  * Helper for building HTTP requests.
@@ -102,11 +102,20 @@ FlyBase.prototype = {
   /**
    * Add header to request.
    * @param {String} name
-   * @param {String|Number|Boolean} val
+   * @param {String|Number|Boolean} value
    * @return {FlyBase}
    */
-  header: function (name, val) {
-    this._headers[name] = val
+  header: function (name, value) {
+    this._headers[name] = value
+    return this
+  },
+  /**
+   * Convenience method for setting the "Authorization" header.
+   * @param {String} value
+   * @return {FlyBase}
+   */
+  auth: function (value) {
+    this._headers['Authorization'] = value
     return this
   },
   /**

@@ -1,4 +1,4 @@
-import Fly from './src/Fly.browser'
+import Fly from './src/FlyBrowser'
 
 const createInstanceMethods = [
   'path',

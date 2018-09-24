@@ -1,4 +1,4 @@
-import Fly from '../src/Fly.browser'
+import Fly from '../src/FlyBrowser'
 import fly from '..'
 
 describe('response handling', () => {
