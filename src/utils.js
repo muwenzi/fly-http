@@ -1,24 +1,45 @@
-function isNumeric (n) {
-  return !isNaN(parseFloat(n)) && isFinite(n)
+export function isNumeric (value) {
+  return !isNaN(parseFloat(value) && isFinite(value))
 }
 
-function isBoolean (b) {
-  return typeof b === 'boolean'
+export function isBoolean (value) {
+  return typeof value === 'boolean'
 }
 
-function isArray (a) {
-  return Object.prototype.toString.call(a) === '[object Array]'
+export function isArray (value) {
+  return Object.prototype.toString.call(value) === '[object Array]'
 }
 
-function isString (s) {
-  return typeof s === 'string' || s instanceof String
+export function isString (value) {
+  return typeof value === 'string'
 }
 
-function isUndefined (u) {
-  return u === undefined
+export function isUndefined (value) {
+  return value === undefined
 }
 
-function getHeaderFilename (headers) {
+export function isObject (value) {
+  return value === Object(value)
+}
+
+export function isEmpty (value) {
+  return value == null || !(Object.keys(value) || value).length
+}
+
+export function isValidJSON (obj) {
+  try {
+    JSON.parse(obj)
+    return true
+  } catch (e) {
+    return false
+  }
+}
+
+export function isPrimitive (value) {
+  return !['object', 'function'].includes(typeof value) || value === null
+}
+
+export function getHeaderFilename (headers) {
   try {
     const rawFilename = headers.get('Content-Disposition').split('filename=')[1]
     return rawFilename.trim().slice(1, -1) // Removes "
@@ -33,5 +54,9 @@ export default {
   isArray,
   isString,
   isUndefined,
+  isObject,
+  isEmpty,
+  isValidJSON,
+  isPrimitive,
   getHeaderFilename
 }

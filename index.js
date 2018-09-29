@@ -9,6 +9,7 @@ const createInstanceMethods = [
   'q',
   'queryAll',
   'header',
+  'auth',
   'contentType',
   'withText',
   'withJson',
@@ -17,7 +18,10 @@ const createInstanceMethods = [
   'asXML',
   'enrichResponse',
   'cache',
-  'append'
+  'append',
+  'formData',
+  'formUrl',
+  'credentials'
 ]
 
 const createInstance = () => {

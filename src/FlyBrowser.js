@@ -32,6 +32,20 @@ FlyBrowser.prototype.download = function (fileName) {
   return this.send('GET')
 }
 
+/**
+ * Set Fetch API credentials option.
+ * @param {'same-origin'|'include'|'omit'} credentials
+ * @returns {FlyBrowser}
+ */
+FlyBrowser.prototype.credentials = function (credentials) {
+  if (['same-origin', 'include', 'omit'].includes(credentials)) {
+    this._credentials = credentials
+  } else {
+    console.warn('credentials must be one of same-origin, include or omit')
+  }
+  return this
+}
+
 FlyBrowser.prototype._sendRequest = function (url, method, body, headers) {
   return this._browserRequest(url, method, body, headers)
     .then(function (response) {
@@ -52,41 +66,43 @@ FlyBrowser.prototype._sendRequest = function (url, method, body, headers) {
 }
 
 FlyBrowser.prototype._browserRequest = function (url, method, body, headers) {
-  let me = this
-  return new Promise(function (resolve, reject) {
+  return new Promise((resolve, reject) => {
     let form
     const config = {
-      credentials: 'same-origin',
+      credentials: this._credentials,
       method: method,
       headers: headers
     }
-    if (me._formData.length) {
+    if (this._formUrl.length) {
+      form = this._formUrl
+    }
+    if (this._formData.length) {
       form = new FormData()
-      me._formData.forEach(function (formFieldArguments) {
+      this._formData.forEach(function (formFieldArguments) {
         form.append.apply(form, formFieldArguments)
       })
     }
     if (form || body) {
       config.body = form || body
     }
-    me._xhr = window.fetch(url, config)
-      .then(function (res) {
+    this._xhr = window.fetch(url, config)
+      .then(res => {
         let p
-        if (res.headers.get('Content-Type').indexOf('application/json') !== -1) {
+        if (res.headers.get('Content-Type').includes('application/json')) {
           p = res.json()
-        } else if (me._download) {
+        } else if (this._download) {
           p = res.blob()
         } else {
           p = res.text()
         }
-        p.then(function (data) {
+        p.then(data => {
           res.data = data === undefined ? null : data
           if (res.ok) {
-            if (me._download) {
+            if (this._download) {
               FileSaver.saveAs(data,
-                me._downloadAsFilename ||
+                this._downloadAsFilename ||
                 utils.getHeaderFilename(res.headers) ||
-                me._downloadDefaultFilename)
+                this._downloadDefaultFilename)
             }
             resolve(res)
           } else {
@@ -94,7 +110,7 @@ FlyBrowser.prototype._browserRequest = function (url, method, body, headers) {
           }
         })
       })
-      .catch(function (err) {
+      .catch(err => {
         reject(err)
       })
   })

@@ -1,7 +1,7 @@
 {
   "name": "fly-http",
   "version": "0.0.0",
-  "description": "Chaining and declarative HTTP client based on the browser Fetch API",
+  "description": "Chained and declarative HTTP client based on the browser Fetch API",
   "main": "index.js",
   "files": [
     "src"
@@ -30,7 +30,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/muwenzi/fly.js.git"
+    "url": "git+https://github.com/muwenzi/fly-http.js.git"
   },
   "keywords": [
     "fly",
@@ -44,9 +44,9 @@
   "author": "Kimi Gao",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/muwenzi/http-chain/issues"
+    "url": "https://github.com/muwenzi/fly-http/issues"
   },
-  "homepage": "https://github.com/muwenzi/http-chain#readme",
+  "homepage": "https://github.com/muwenzi/fly-http",
   "dependencies": {
     "file-saver": "^1.3.8"
   },

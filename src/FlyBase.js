@@ -1,4 +1,4 @@
-import util from './utils'
+import utils from './utils'
 
 /**
  * Helper for building HTTP requests.
@@ -12,6 +12,7 @@ function FlyBase () {
     'Accept': 'application/json'
   }
   this._formData = []
+  this._formUrl = null
 }
 
 let RequestCacheMap = {}
@@ -31,6 +32,8 @@ FlyBase.prototype = {
   _beforeSend: [],
   _processData: true,
   _formData: null,
+  _formUrl: null,
+  _credentials: 'same-origin',
   /**
    * Add query parameter to request url.
    * @param key {String}
@@ -51,32 +54,66 @@ FlyBase.prototype = {
     return this
   },
   /**
-   * Append formData params. Cancel body params for browser calls.
+   * Append formData params.
    * @return {FlyBase}
    */
   append: function () {
     if (arguments.length) {
       this._formData.push(arguments)
     }
+    this.content('multipart/form-data')
+    return this
+  },
+  /**
+   * Convert the javascript object to a FormData and sets the request body.
+   * @param {Object} formObject An object which will be converted to a FormData.
+   * @return {FlyBase}
+   */
+  formData: function (formObject) {
+    if (!utils.isObject(formObject)) {
+      console.warn('form Data must be Object.')
+    }
+    for (const [key, value] of Object.entries(formObject)) {
+      if (value instanceof Array) {
+        for (const item of value) { this.append(key + '[]', item) }
+      } else {
+        this.append(key, value)
+      }
+    }
+    return this
+  },
+  /**
+   * Convert the input to an url encoded string and sets the content-type header and body.
+   * If the input argument is already a string, skips the conversion part.
+   * @param {String|Object} input convert into an url encoded string or an already encoded string.
+   * @return {FlyBase}
+   */
+  formUrl: function (input) {
+    if (!utils.isObject(input) && !utils.isString(input)) {
+      console.warn('form Data must be Object or string.')
+      return
+    }
+    this._formUrl = utils.isString(input) ? input : encodeObject(input)
+    this.content('application/x-www-form-urlencoded')
     return this
   },
   /**
    * Callback that gets invoked with string url before sending.
    * Note: It can only change headers and body of the request.
-   * @param callback Called with arguments (method, url, body) and "this" is this FlyBase
-   * @returns {FlyBase}
+   * @param callback Called with arguments (method, url, body) and "this" is this FlyBase.
+   * @returns {FlyBase}.
    */
   beforeSend: function (callback) {
     this._beforeSend.push(callback)
     return this
   },
   /**
-   * Add path segment to request url. Do not include the slash.
+   * Add path segment to request url including non-encoded path segment.
    * @param {String|Int} path
    * @return {FlyBase}
    */
   path: function (path) {
-    if (util.isNumeric(path) || util.isBoolean(path)) {
+    if (utils.isNumeric(path) || utils.isBoolean(path)) {
       path = path.toString()
     }
 
@@ -84,19 +121,8 @@ FlyBase.prototype = {
       path = ''
     }
 
-    this._path.push(path.indexOf('/') === -1 ? encodeURIComponent(path) : encodeURI(path))
+    this._path.push(path.includes('/') ? encodeURI(path) : encodeURIComponent(path))
 
-    return this
-  },
-  /**
-   * Add non-encoded path segment to request url.
-   * @param {String|Int} path
-   * @return {FlyBase}
-   */
-  pathRaw: function (path) {
-    if (path) {
-      this._path.push(path)
-    }
     return this
   },
   /**
@@ -178,7 +204,7 @@ FlyBase.prototype = {
    * @returns {FlyBase}
    */
   cache: function (ttl) {
-    this._cache = util.isNumeric(ttl) ? ttl : -1
+    this._cache = utils.isNumeric(ttl) ? ttl : -1
     return this
   },
   processData: function (processData) {
@@ -316,27 +342,32 @@ FlyBase.prototype = {
   _resolveUrl: function (url) {}
 }
 
+function encodeQueryValue (key, value) {
+  return encodeURIComponent(key) +
+    '=' +
+    encodeURIComponent(
+      typeof value === 'object'
+        ? JSON.stringify(value)
+        : '' + value
+    )
+}
+
+function encodeObject (obj) {
+  return Object.keys(obj).map(function (key) {
+    let value = obj[key]
+    if (!utils.isArray(value)) {
+      value = [value]
+    }
+    // Query param values that are lists (e.g. tag: [1, 2, 3]) should be sent as tag=1&tag=2&tag=3 to match the API.
+    return value.map(valItem => encodeQueryValue(key, valItem)).join('&')
+  }).join('&')
+}
+
 function buildUrl (path, params) {
   let url = path.join('/')
-
-  const paramsKeys = Object.keys(params)
-
-  if (paramsKeys.length > 0) {
-    let queryParams = []
-    paramsKeys.forEach(function (key) {
-      let val = params[key]
-      if (!util.isArray(val)) {
-        val = [val]
-      }
-      // Query param values that are lists (e.g. tag: [1, 2, 3]) should be sent as tag=1&tag=2&tag=3 to match the API.
-      val.forEach(function (valItem) {
-        queryParams.push(encodeURIComponent(key) + '=' + encodeURIComponent(valItem))
-      })
-    })
-
-    url += '?' + queryParams.join('&')
+  if (!utils.isEmpty(params)) {
+    url += '?' + encodeObject(params)
   }
-
   return url
 }
 

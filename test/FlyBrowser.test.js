@@ -5,7 +5,7 @@ describe('response handling', () => {
   let respond
 
   beforeEach(() => {
-    spyOn(Fly.prototype, '_browserRequest').and.callFake(function () {
+    spyOn(Fly.prototype, '_browserRequest').and.callFake(() => {
       return new Promise(function (resolve, reject) {
         respond = function (body, status, headers) {
           if (!status || (status >= 200 && status < 300)) {
@@ -25,7 +25,7 @@ describe('response handling', () => {
     })
   })
 
-  it('with enrichResponse() should return a promise for the normalized response data.', function (done) {
+  it('with enrichResponse() should return a promise for the normalized response data.', done => {
     let request = fly
       .p('hest')
       .enrichResponse()
@@ -43,7 +43,7 @@ describe('response handling', () => {
     })
   })
 
-  it('should return a promise for the response data.', function (done) {
+  it('should return a promise for the response data.', done => {
     let request = fly
       .p('hest')
       .get()
@@ -56,7 +56,7 @@ describe('response handling', () => {
     })
   })
 
-  it('should return a promise that rejects on errors.', function (done) {
+  it('should return a promise that rejects on errors.', done => {
     let request = fly
       .p('hest')
       .get()
@@ -75,7 +75,7 @@ describe('response handling', () => {
     })
   })
 
-  it('should return a promise that rejects with null on 404.', function (done) {
+  it('should return a promise that rejects with null on 404.', done => {
     let request = fly
       .p('hest')
       .get()
@@ -89,8 +89,8 @@ describe('response handling', () => {
   })
 })
 
-describe('request', function () {
-  beforeEach(function () {
+describe('request', () => {
+  beforeEach(() => {
     spyOn(Fly.prototype, '_sendRequest').and.returnValue(
       new Promise(function (resolve, reject) {
         resolve({})
@@ -98,8 +98,8 @@ describe('request', function () {
     )
   })
 
-  describe('Accept header', function () {
-    it('should default to "application/json".', function () {
+  describe('Accept header', () => {
+    it('should default to "application/json".', () => {
       fly
         .p('hest')
         .get()
@@ -108,7 +108,7 @@ describe('request', function () {
       expect(headers['Accept']).toBe('application/json')
     })
 
-    it('should be set to "text/plain" when calling asText().', function () {
+    it('should be set to "text/plain" when calling asText().', () => {
       fly
         .p('hest')
         .asText()
@@ -118,7 +118,7 @@ describe('request', function () {
       expect(headers['Accept']).toBe('text/plain')
     })
 
-    it('should be set to "text/xml" when calling asXML().', function () {
+    it('should be set to "text/xml" when calling asXML().', () => {
       fly
         .p('hest')
         .asXML()
@@ -129,8 +129,8 @@ describe('request', function () {
     })
   })
 
-  describe('URL', function () {
-    it('should consist of appended p() calls.', function () {
+  describe('URL', () => {
+    it('should consist of appended p() calls.', () => {
       fly
         .p('hest')
         .p(1)
@@ -141,7 +141,7 @@ describe('request', function () {
       expect(url).toBe('hest/1/pony')
     })
 
-    it('should use query parameters.', function () {
+    it('should use query parameters.', () => {
       fly
         .p('hest')
         .q('pony', true)
@@ -152,7 +152,7 @@ describe('request', function () {
       expect(url).toBe('hest?pony=true&text=ab' + encodeURIComponent('&=') + 'cd')
     })
 
-    it('should be able to set query parameter with an object hash', function () {
+    it('should be able to set query parameter with an object hash', () => {
       fly
         .p('hest')
         .queryAll({ pony: true, text: 'ab&=cd' })
@@ -161,7 +161,7 @@ describe('request', function () {
       expect(url).toBe('hest?pony=true&text=ab' + encodeURIComponent('&=') + 'cd')
     })
 
-    it('should send identically named query parameters as repeated keys.', function () {
+    it('should send identically named query parameters as repeated keys.', () => {
       fly
         .p('hest')
         .q('tag', ['awesome', 'little'])
@@ -171,7 +171,7 @@ describe('request', function () {
       expect(url).toContain('hest?tag=awesome&tag=little')
     })
 
-    it('should not send query params with undefined value', function () {
+    it('should not send query params with undefined value', () => {
       fly
         .p('hest')
         .q('tag', undefined)
@@ -181,7 +181,7 @@ describe('request', function () {
       expect(url).not.toContain('tag=undefined')
     })
 
-    it('should not send query params with null value', function () {
+    it('should not send query params with null value', () => {
       fly
         .p('hest')
         .q('tag', null)
@@ -192,8 +192,8 @@ describe('request', function () {
     })
   })
 
-  describe('body', function () {
-    it('should be JSON data for POST by default.', function () {
+  describe('body', () => {
+    it('should be JSON data for POST by default.', () => {
       let data = { hest: true, pony: 'awesome' }
       fly
         .p('hest')
@@ -203,7 +203,7 @@ describe('request', function () {
       expect(body).toEqual(JSON.stringify(data))
     })
 
-    it('should be JSON data for PUT by default.', function () {
+    it('should be JSON data for PUT by default.', () => {
       let data = { hest: true, pony: 'awesome' }
       fly
         .p('hest')
@@ -214,24 +214,12 @@ describe('request', function () {
     })
   })
 
-  describe('pathRaw', function () {
-    it('should not double encode the path', function () {
-      let path = 'This%2Fis%2Falready%2Fencoded'
-      fly
-        .pathRaw(path)
-        .get()
-
-      let requestedPath = Fly.prototype._sendRequest.calls.mostRecent().args[0]
-      expect(requestedPath).toEqual(path)
-    })
-  })
-
-  describe('caching', function () {
-    afterEach(function () {
+  describe('caching', () => {
+    afterEach(() => {
       Fly.clearCache()
     })
 
-    it('should cache GET requests if asked to do so', function () {
+    it('should cache GET requests if asked to do so', () => {
       fly
         .p('hest')
         .cache()
@@ -244,7 +232,7 @@ describe('request', function () {
       expect(Fly.prototype._sendRequest.calls.count()).toBe(1)
     })
 
-    it('should set ttl', function () {
+    it('should set ttl', () => {
       let ttl = 10000
       let req = fly
         .p('hest')
@@ -252,7 +240,7 @@ describe('request', function () {
       expect(req._cache).toBe(ttl)
     })
 
-    it('should use default ttl for non-numbers', function () {
+    it('should use default ttl for non-numbers', () => {
       let DEFAULT_TTL = -1
       let invalidTTLs = ['a', true, false]
       invalidTTLs.forEach(function (ttl) {
@@ -263,7 +251,7 @@ describe('request', function () {
       })
     })
 
-    it('cache is automatically evicted after cache expires', function (done) {
+    it('cache is automatically evicted after cache expires', done => {
       fly
         .p('hest')
         .cache(10)
@@ -275,7 +263,7 @@ describe('request', function () {
 
       expect(Fly.prototype._sendRequest.calls.count()).toBe(1)
 
-      setTimeout(function () {
+      setTimeout(() => {
         expect(Fly.prototype._sendRequest.calls.count()).toBe(1)
 
         fly
@@ -289,8 +277,8 @@ describe('request', function () {
       }, 15)
     })
 
-    it('should throw if asked to cache non-GET requests', function () {
-      expect(function () {
+    it('should throw if asked to cache non-GET requests', () => {
+      expect(() => {
         fly
           .p('hest')
           .cache()
@@ -300,13 +288,57 @@ describe('request', function () {
       expect(Fly.prototype._sendRequest.calls.count()).toBe(0)
     })
   })
-  it('should apeend form data', function () {
-    const fieldName = 'fieldName'
-    const fieldValue = 'fieldValue'
-    const instance = fly.append(fieldName, fieldValue)
-
-    expect(instance._formData.length).toEqual(1)
-    expect(instance._formData[0][0]).toEqual(fieldName)
-    expect(instance._formData[0][1]).toEqual(fieldValue)
+  describe('FORM', () => {
+    describe('append()', () => {
+      const fieldName = 'fieldName'
+      const fieldValue = 'fieldValue'
+      it('should set the request header correctly', () => {
+        const instance = fly.append(fieldName, fieldValue)
+        expect(instance._headers['Content-Type']).toEqual('multipart/form-data')
+      })
+      it('should apeend form data and set the request body', () => {
+        const instance = fly.append(fieldName, fieldValue)
+        expect(instance._formData.length).toEqual(1)
+        expect(instance._formData[0][0]).toEqual(fieldName)
+        expect(instance._formData[0][1]).toEqual(fieldValue)
+      })
+    })
+    describe('formData()', () => {
+      const data = {
+        pony: true,
+        text: 'abc'
+      }
+      it('should set the request header correctly', () => {
+        const instance = fly.formData(data)
+        expect(instance._headers['Content-Type']).toEqual('multipart/form-data')
+      })
+      it('should convert js object to a FormData and set the request body', () => {
+        const instance = fly.formData(data)
+        expect(instance._formData.length).toEqual(2)
+        expect(instance._formData[0][0]).toEqual('pony')
+        expect(instance._formData[0][1]).toEqual(true)
+        expect(instance._formData[1][0]).toEqual('text')
+        expect(instance._formData[1][1]).toEqual('abc')
+      })
+    })
+    describe('formUrl()', () => {
+      const input = {
+        pony: true,
+        tim: { isFat: false }
+      }
+      it('should convert the input to an url encoded string', () => {
+        const instance = fly.formUrl(input)
+        expect(instance._formUrl).toEqual('pony=true&tim=%7B%22isFat%22%3Afalse%7D')
+      })
+      it('should skip the conversion part if the input argument is already a string', () => {
+        const alreadyEncodedForm = 'pony=true&tim=%7B%22isFat%22%3Afalse%7D'
+        const instance = fly.formUrl(alreadyEncodedForm)
+        expect(instance._formUrl).toEqual('pony=true&tim=%7B%22isFat%22%3Afalse%7D')
+      })
+      it('should sets the content-type header and body', () => {
+        const instance = fly.formUrl(input)
+        expect(instance._headers['Content-Type']).toEqual('application/x-www-form-urlencoded')
+      })
+    })
   })
 })
