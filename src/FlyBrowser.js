@@ -73,7 +73,7 @@ FlyBrowser.prototype._browserRequest = function (url, method, body, headers) {
       method: method,
       headers: headers
     }
-    if (this._formUrl.length) {
+    if (utils.isString(this._formUrl) && this._formUrl.length) {
       form = this._formUrl
     }
     if (this._formData.length) {

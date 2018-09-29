@@ -12,7 +12,7 @@ function FlyBase () {
     'Accept': 'application/json'
   }
   this._formData = []
-  this._formUrl = null
+  this._formUrl = ''
 }
 
 let RequestCacheMap = {}
@@ -31,8 +31,8 @@ FlyBase.prototype = {
   _external: null,
   _beforeSend: [],
   _processData: true,
-  _formData: null,
-  _formUrl: null,
+  _formData: [],
+  _formUrl: '',
   _credentials: 'same-origin',
   /**
    * Add query parameter to request url.
