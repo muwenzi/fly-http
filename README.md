@@ -120,7 +120,7 @@ fly
 
 </details>
 
-<br>[⬆ Back to top](#API-Preview)
+<br>[⬆ Back to top][back-to-top-url]
 
 ### p(path: string | number)
 
@@ -139,7 +139,7 @@ fly
 ```
 </details>
 
-<br>[⬆ Back to top](#API-Preview)
+<br>[⬆ Back to top][back-to-top-url]
 
 ### query(key: string, value: string | number | boolean | array)
 
@@ -160,7 +160,7 @@ fly
 
 </details>
 
-<br>[⬆ Back to top](#API-Preview)
+<br>[⬆ Back to top][back-to-top-url]
 
 ### q(key: string, value: string | number | boolean | array)
 
@@ -181,7 +181,7 @@ fly
 
 </details>
 
-<br>[⬆ Back to top](#API-Preview)
+<br>[⬆ Back to top][back-to-top-url]
 
 ### queryAll(params: object)
 
@@ -204,7 +204,7 @@ fly
 
 </details>
 
-<br>[⬆ Back to top](#API-Preview)
+<br>[⬆ Back to top][back-to-top-url]
 
 ### header(name: string, value: string | number | boolean)
 
@@ -231,7 +231,7 @@ You can also define custom header by this method:
 
 </details>
 
-<br>[⬆ Back to top](#API-Preview)
+<br>[⬆ Back to top][back-to-top-url]
 
 ### auth(value: string)
 
@@ -250,7 +250,7 @@ Convenience method for setting the "Authorization" header, same with:
 
 </details>
 
-<br>[⬆ Back to top](#API-Preview)
+<br>[⬆ Back to top][back-to-top-url]
 
 ### content(contentType: string)
 
@@ -265,7 +265,7 @@ Set the content type of the body.
 
 </details>
 
-<br>[⬆ Back to top](#API-Preview)
+<br>[⬆ Back to top][back-to-top-url]
 
 ### withText()
 
@@ -275,7 +275,7 @@ Convenience method for sending data as plain text, same with:
 .content('text/plain')
 ```
 
-[⬆ Back to top](#API-Preview)
+[⬆ Back to top][back-to-top-url]
 
 ### withJson()
 
@@ -285,7 +285,7 @@ Convenience method for sending data as json, same with:
 .content('application/json')
 ```
 
-[⬆ Back to top](#API-Preview)
+[⬆ Back to top][back-to-top-url]
 
 ### accept(acceptType: string)
 
@@ -300,7 +300,7 @@ Set the Accept header.
 
 </details>
 
-<br>[⬆ Back to top](#API-Preview)
+<br>[⬆ Back to top][back-to-top-url]
 
 ### asText()
 
@@ -310,7 +310,7 @@ Convenience method for getting plain text response, same with:
 .accept('text/plain')
 ```
 
-[⬆ Back to top](#API-Preview)
+[⬆ Back to top][back-to-top-url]
 
 ### asXML()
 
@@ -320,7 +320,7 @@ Convenience method for getting XML response, same with:
 .accept('text/plain')
 ```
 
-[⬆ Back to top](#API-Preview)
+[⬆ Back to top][back-to-top-url]
 
 ### append(name: string, value: string | Blob, fileName?: string)
 
@@ -340,7 +340,7 @@ fly
 
 </details>
 
-<br>[⬆ Back to top](#API-Preview)
+<br>[⬆ Back to top][back-to-top-url]
 
 ### formData(data: object)
 
@@ -363,7 +363,7 @@ fly
 
 </details>
 
-<br>[⬆ Back to top](#API-Preview)
+<br>[⬆ Back to top][back-to-top-url]
 
 ### formUrl(input: object | string)
 
@@ -385,7 +385,7 @@ fly.path('...').formUrl(alreadyEncodedForm).post()
 
 </details>
 
-<br>[⬆ Back to top](#API-Preview)
+<br>[⬆ Back to top][back-to-top-url]
 
 ### send(method: string, body?: any)
 
@@ -393,7 +393,7 @@ Send request.
 
 supported methods:  POST, GET, POST, PUT, DELETE, PATCH, etc.
 
-[⬆ Back to top](#API-Preview)
+[⬆ Back to top][back-to-top-url]
 
 ### get()
 
@@ -403,7 +403,7 @@ Send GET request, same with:
 .send('GET', null)
 ```
 
-[⬆ Back to top](#API-Preview)
+[⬆ Back to top][back-to-top-url]
 
 ### post(body?: any)
 
@@ -413,7 +413,7 @@ Send POST request, same with:
 .send('POST', body)
 ```
 
-[⬆ Back to top](#API-Preview)
+[⬆ Back to top][back-to-top-url]
 
 ### put(body?: any)
 
@@ -423,7 +423,7 @@ Send PUT request, same with:
 .send('PUT', body)
 ```
 
-[⬆ Back to top](#API-Preview)
+[⬆ Back to top][back-to-top-url]
 
 ### patch(body?: any)
 
@@ -433,7 +433,7 @@ Send PATCH request, same with:
 .send('PATCH', body)
 ```
 
-[⬆ Back to top](#API-Preview)
+[⬆ Back to top][back-to-top-url]
 
 ### head()
 
@@ -443,7 +443,7 @@ Send HEAD request, same with:
 .send('HEAD', null)
 ```
 
-[⬆ Back to top](#API-Preview)
+[⬆ Back to top][back-to-top-url]
 
 ### delete()
 
@@ -453,13 +453,13 @@ Send DELETE request, same with:
 .send('DELETE', null)
 ```
 
-[⬆ Back to top](#API-Preview)
+[⬆ Back to top][back-to-top-url]
 
 ### cache(ttl: number)
 
 Makes this request cache for ttl milliseconds.
 
-[⬆ Back to top](#API-Preview)
+[⬆ Back to top][back-to-top-url]
 
 ### clearCache()
 
@@ -476,7 +476,7 @@ clearCache()
 
 </details>
 
-<br>[⬆ Back to top](#API-Preview)
+<br>[⬆ Back to top][back-to-top-url]
 
 ### beforeSend(callback: func)
 
@@ -484,7 +484,7 @@ Callback that gets invoked with string url before sending.
 
 Note: It can only change headers and body of the request.
 
-[⬆ Back to top](#API-Preview)
+[⬆ Back to top][back-to-top-url]
 
 ### credentials(credentials: 'same-origin' | 'include' | 'omit')
 
@@ -502,7 +502,7 @@ fly
 
 </details>
 
-<br>[⬆ Back to top](#API-Preview)
+<br>[⬆ Back to top][back-to-top-url]
 
 ### enrichResponse()
 
@@ -520,7 +520,7 @@ fly
 
 </details>
 
-<br>[⬆ Back to top](#API-Preview)
+<br>[⬆ Back to top][back-to-top-url]
 
 ### download(fileName?: string)
 
@@ -556,7 +556,7 @@ fly
 
 </details>
 
-<br>[⬆ Back to top](#API-Preview)
+<br>[⬆ Back to top][back-to-top-url]
 
 ## Changelog
 
@@ -575,7 +575,7 @@ MIT © [Kimi Gao](https://github.com/muwenzi)
 [license-url]: https://github.com/muwenzi/fly-http/blob/master/LICENSE
 [license-image]: https://img.shields.io/github/license/muwenzi/fly-http.svg?style=flat-square
 [changelog-url]: https://github.com/muwenzi/fly-http/blob/master/CHANGELOG.md
-[online-api-docs]: https://fly-http.gitbook.io/api
+[back-to-top-url]: #api-preview
 [path-url]: #pathpath-string--number
 [p-url]: #ppath-string--number
 [query-url]: #querykey-string-value-string--number--boolean--array
