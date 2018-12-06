@@ -30,7 +30,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/muwenzi/fly-http.js.git"
+    "url": "git+https://github.com/muwenzi/fly-http.git"
   },
   "keywords": [
     "fly",

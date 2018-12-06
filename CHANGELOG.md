@@ -8,12 +8,12 @@ All notable changes to this project will be documented in this file. See [standa
 
 ### Bug Fixes
 
-* **formUrl:** revamp formUrl length issue ([4ae598a](https://github.com/muwenzi/fly-http.js/commit/4ae598a))
+* **formUrl:** revamp formUrl length issue ([4ae598a](https://github.com/muwenzi/fly-http/commit/4ae598a))
 
 
 ### Features
 
-* **auth:** add new auth api ([f112db4](https://github.com/muwenzi/fly-http.js/commit/f112db4))
-* **download:** support browser download ([7e355f7](https://github.com/muwenzi/fly-http.js/commit/7e355f7))
-* **form/credentials:** add formData formUrl and credentials api ([11fd744](https://github.com/muwenzi/fly-http.js/commit/11fd744))
-* **Init:** add basic api ([aaae9a3](https://github.com/muwenzi/fly-http.js/commit/aaae9a3))
+* **auth:** add new auth api ([f112db4](https://github.com/muwenzi/fly-http/commit/f112db4))
+* **download:** support browser download ([7e355f7](https://github.com/muwenzi/fly-http/commit/7e355f7))
+* **form/credentials:** add formData formUrl and credentials api ([11fd744](https://github.com/muwenzi/fly-http/commit/11fd744))
+* **Init:** add basic api ([aaae9a3](https://github.com/muwenzi/fly-http/commit/aaae9a3))

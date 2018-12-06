@@ -4,7 +4,7 @@ import utils from './utils'
  * Helper for building HTTP requests.
  * @constructor
  */
-function FlyBase () {
+function Request () {
   this._path = []
   this._params = {}
   this._headers = {
@@ -17,11 +17,11 @@ function FlyBase () {
 
 let RequestCacheMap = {}
 
-FlyBase.clearCache = function () {
+Request.clearCache = function () {
   RequestCacheMap = {}
 }
 
-FlyBase.prototype = {
+Request.prototype = {
   _path: null,
   _params: null,
   _headers: null,
@@ -34,11 +34,12 @@ FlyBase.prototype = {
   _formData: [],
   _formUrl: '',
   _credentials: 'same-origin',
+  _mode: 'no-cors',
   /**
    * Add query parameter to request url.
    * @param key {String}
    * @param value {String|Number|Boolean|Array}
-   * @return {FlyBase}
+   * @return {Request}
    */
   query: function (key, value) {
     if (value !== null && value !== undefined) {
@@ -55,7 +56,7 @@ FlyBase.prototype = {
   },
   /**
    * Append formData params.
-   * @return {FlyBase}
+   * @return {Request}
    */
   append: function () {
     if (arguments.length) {
@@ -67,7 +68,7 @@ FlyBase.prototype = {
   /**
    * Convert the javascript object to a FormData and sets the request body.
    * @param {Object} formObject An object which will be converted to a FormData.
-   * @return {FlyBase}
+   * @return {Request}
    */
   formData: function (formObject) {
     if (!utils.isObject(formObject)) {
@@ -86,7 +87,7 @@ FlyBase.prototype = {
    * Convert the input to an url encoded string and sets the content-type header and body.
    * If the input argument is already a string, skips the conversion part.
    * @param {String|Object} input convert into an url encoded string or an already encoded string.
-   * @return {FlyBase}
+   * @return {Request}
    */
   formUrl: function (input) {
     if (!utils.isObject(input) && !utils.isString(input)) {
@@ -100,8 +101,8 @@ FlyBase.prototype = {
   /**
    * Callback that gets invoked with string url before sending.
    * Note: It can only change headers and body of the request.
-   * @param callback Called with arguments (method, url, body) and "this" is this FlyBase.
-   * @returns {FlyBase}.
+   * @param callback Called with arguments (method, url, body) and "this" is this Request.
+   * @returns {Request}.
    */
   beforeSend: function (callback) {
     this._beforeSend.push(callback)
@@ -110,7 +111,7 @@ FlyBase.prototype = {
   /**
    * Add path segment to request url including non-encoded path segment.
    * @param {String|Int} path
-   * @return {FlyBase}
+   * @return {Request}
    */
   path: function (path) {
     if (utils.isNumeric(path) || utils.isBoolean(path)) {
@@ -129,7 +130,7 @@ FlyBase.prototype = {
    * Add header to request.
    * @param {String} name
    * @param {String|Number|Boolean} value
-   * @return {FlyBase}
+   * @return {Request}
    */
   header: function (name, value) {
     this._headers[name] = value
@@ -138,7 +139,7 @@ FlyBase.prototype = {
   /**
    * Convenience method for setting the "Authorization" header.
    * @param {String} value
-   * @return {FlyBase}
+   * @return {Request}
    */
   auth: function (value) {
     this._headers['Authorization'] = value
@@ -147,7 +148,7 @@ FlyBase.prototype = {
   /**
    * Set the content type of the body.
    * @param {String} contentType
-   * @returns {FlyBase}
+   * @returns {Request}
    */
   content: function (contentType) {
     this._headers['Content-Type'] = contentType
@@ -155,14 +156,14 @@ FlyBase.prototype = {
   },
   /**
    * Convenience method for sending data as plain text.
-   * @returns {FlyBase}
+   * @returns {Request}
    */
   withText: function () {
     return this.content('text/plain')
   },
   /**
    * Convenience method for sending data as json.
-   * @returns {FlyBase}
+   * @returns {Request}
    */
   withJson: function () {
     return this.content('application/json')
@@ -170,7 +171,7 @@ FlyBase.prototype = {
   /**
    * Set the Accept header.
    * @param {String} acceptType
-   * @returns {FlyBase}
+   * @returns {Request}
    */
   accept: function (acceptType) {
     this._headers['Accept'] = acceptType
@@ -178,21 +179,21 @@ FlyBase.prototype = {
   },
   /**
    * Convenience method for getting plain text response.
-   * @returns {FlyBase}
+   * @returns {Request}
    */
   asText: function () {
     return this.accept('text/plain')
   },
   /**
    * Convenience method for getting XML response.
-   * @returns {FlyBase}
+   * @returns {Request}
    */
   asXML: function () {
     return this.accept('text/xml')
   },
   /**
    * Return a promise for the response (including status code and headers), rather than for just the response data.
-   * @returns {FlyBase}
+   * @returns {Request}
    */
   enrichResponse: function () {
     this._raw = true
@@ -201,7 +202,7 @@ FlyBase.prototype = {
   /**
    * Makes this request cache for ttl milliseconds.
    * @param {Number} [ttl=forever]
-   * @returns {FlyBase}
+   * @returns {Request}
    */
   cache: function (ttl) {
     this._cache = utils.isNumeric(ttl) ? ttl : -1
@@ -213,14 +214,14 @@ FlyBase.prototype = {
   },
   /**
    * Alias for query().
-   * @return {FlyBase}
+   * @return {Request}
    */
   q: function () {
     return this.query.apply(this, arguments)
   },
   /**
    * Alias for path().
-   * @return {FlyBase}
+   * @return {Request}
    */
   p: function () {
     return this.path.apply(this, arguments)
@@ -371,4 +372,4 @@ function buildUrl (path, params) {
   return url
 }
 
-export default FlyBase
+export default Request

@@ -1,11 +1,11 @@
-import Fly from '../src/FlyBrowser'
-import fly from '..'
+import BrowserRequest from '../src/BrowserRequest'
+import http from '../index'
 
 describe('response handling', () => {
   let respond
 
   beforeEach(() => {
-    spyOn(Fly.prototype, '_browserRequest').and.callFake(() => {
+    spyOn(BrowserRequest.prototype, '_browserRequest').and.callFake(() => {
       return new Promise(function (resolve, reject) {
         respond = function (body, status, headers) {
           if (!status || (status >= 200 && status < 300)) {
@@ -26,7 +26,7 @@ describe('response handling', () => {
   })
 
   it('with enrichResponse() should return a promise for the normalized response data.', done => {
-    let request = fly
+    let request = http
       .p('hest')
       .enrichResponse()
       .get()
@@ -44,7 +44,7 @@ describe('response handling', () => {
   })
 
   it('should return a promise for the response data.', done => {
-    let request = fly
+    let request = http
       .p('hest')
       .get()
 
@@ -57,7 +57,7 @@ describe('response handling', () => {
   })
 
   it('should return a promise that rejects on errors.', done => {
-    let request = fly
+    let request = http
       .p('hest')
       .get()
 
@@ -76,7 +76,7 @@ describe('response handling', () => {
   })
 
   it('should return a promise that rejects with null on 404.', done => {
-    let request = fly
+    let request = http
       .p('hest')
       .get()
 
@@ -91,7 +91,7 @@ describe('response handling', () => {
 
 describe('request', () => {
   beforeEach(() => {
-    spyOn(Fly.prototype, '_sendRequest').and.returnValue(
+    spyOn(BrowserRequest.prototype, '_sendRequest').and.returnValue(
       new Promise(function (resolve, reject) {
         resolve({})
       })
@@ -100,94 +100,94 @@ describe('request', () => {
 
   describe('Accept header', () => {
     it('should default to "application/json".', () => {
-      fly
+      http
         .p('hest')
         .get()
 
-      let headers = Fly.prototype._sendRequest.calls.mostRecent().args[3]
+      let headers = BrowserRequest.prototype._sendRequest.calls.mostRecent().args[3]
       expect(headers['Accept']).toBe('application/json')
     })
 
     it('should be set to "text/plain" when calling asText().', () => {
-      fly
+      http
         .p('hest')
         .asText()
         .get()
 
-      let headers = Fly.prototype._sendRequest.calls.mostRecent().args[3]
+      let headers = BrowserRequest.prototype._sendRequest.calls.mostRecent().args[3]
       expect(headers['Accept']).toBe('text/plain')
     })
 
     it('should be set to "text/xml" when calling asXML().', () => {
-      fly
+      http
         .p('hest')
         .asXML()
         .get()
 
-      let headers = Fly.prototype._sendRequest.calls.mostRecent().args[3]
+      let headers = BrowserRequest.prototype._sendRequest.calls.mostRecent().args[3]
       expect(headers['Accept']).toBe('text/xml')
     })
   })
 
   describe('URL', () => {
     it('should consist of appended p() calls.', () => {
-      fly
+      http
         .p('hest')
         .p(1)
         .p('pony')
         .get()
 
-      let url = Fly.prototype._sendRequest.calls.mostRecent().args[0]
+      let url = BrowserRequest.prototype._sendRequest.calls.mostRecent().args[0]
       expect(url).toBe('hest/1/pony')
     })
 
     it('should use query parameters.', () => {
-      fly
+      http
         .p('hest')
         .q('pony', true)
         .q('text', 'ab&=cd')
         .get()
 
-      let url = Fly.prototype._sendRequest.calls.mostRecent().args[0]
+      let url = BrowserRequest.prototype._sendRequest.calls.mostRecent().args[0]
       expect(url).toBe('hest?pony=true&text=ab' + encodeURIComponent('&=') + 'cd')
     })
 
     it('should be able to set query parameter with an object hash', () => {
-      fly
+      http
         .p('hest')
         .queryAll({ pony: true, text: 'ab&=cd' })
         .get()
-      let url = Fly.prototype._sendRequest.calls.mostRecent().args[0]
+      let url = BrowserRequest.prototype._sendRequest.calls.mostRecent().args[0]
       expect(url).toBe('hest?pony=true&text=ab' + encodeURIComponent('&=') + 'cd')
     })
 
     it('should send identically named query parameters as repeated keys.', () => {
-      fly
+      http
         .p('hest')
         .q('tag', ['awesome', 'little'])
         .get()
 
-      let url = Fly.prototype._sendRequest.calls.mostRecent().args[0]
+      let url = BrowserRequest.prototype._sendRequest.calls.mostRecent().args[0]
       expect(url).toContain('hest?tag=awesome&tag=little')
     })
 
     it('should not send query params with undefined value', () => {
-      fly
+      http
         .p('hest')
         .q('tag', undefined)
         .get()
 
-      let url = Fly.prototype._sendRequest.calls.mostRecent().args[0]
+      let url = BrowserRequest.prototype._sendRequest.calls.mostRecent().args[0]
       expect(url).not.toContain('tag=undefined')
     })
 
     it('should not send query params with null value', () => {
-      fly
+      http
         .p('hest')
         .q('tag', null)
         .get()
 
-      let url = Fly.prototype._sendRequest.calls.mostRecent().args[0]
+      let url = BrowserRequest.prototype._sendRequest.calls.mostRecent().args[0]
       expect(url).not.toContain('tag=null')
     })
   })
@@ -195,46 +195,46 @@ describe('request', () => {
   describe('body', () => {
     it('should be JSON data for POST by default.', () => {
       let data = { hest: true, pony: 'awesome' }
-      fly
+      http
         .p('hest')
         .post(data)
 
-      let body = Fly.prototype._sendRequest.calls.mostRecent().args[2]
+      let body = BrowserRequest.prototype._sendRequest.calls.mostRecent().args[2]
       expect(body).toEqual(JSON.stringify(data))
     })
 
     it('should be JSON data for PUT by default.', () => {
       let data = { hest: true, pony: 'awesome' }
-      fly
+      http
         .p('hest')
         .put(data)
 
-      let body = Fly.prototype._sendRequest.calls.mostRecent().args[2]
+      let body = BrowserRequest.prototype._sendRequest.calls.mostRecent().args[2]
       expect(body).toEqual(JSON.stringify(data))
     })
   })
 
   describe('caching', () => {
     afterEach(() => {
-      Fly.clearCache()
+      BrowserRequest.clearCache()
     })
 
     it('should cache GET requests if asked to do so', () => {
-      fly
+      http
         .p('hest')
         .cache()
         .get()
-      fly
+      http
         .p('hest')
         .cache()
         .get()
 
-      expect(Fly.prototype._sendRequest.calls.count()).toBe(1)
+      expect(BrowserRequest.prototype._sendRequest.calls.count()).toBe(1)
     })
 
     it('should set ttl', () => {
       let ttl = 10000
-      let req = fly
+      let req = http
         .p('hest')
         .cache(ttl)
       expect(req._cache).toBe(ttl)
@@ -244,7 +244,7 @@ describe('request', () => {
       let DEFAULT_TTL = -1
       let invalidTTLs = ['a', true, false]
       invalidTTLs.forEach(function (ttl) {
-        let req = fly
+        let req = http
           .p('hest')
           .cache(ttl)
         expect(req._cache).toBe(DEFAULT_TTL)
@@ -252,26 +252,26 @@ describe('request', () => {
     })
 
     it('cache is automatically evicted after cache expires', done => {
-      fly
+      http
         .p('hest')
         .cache(10)
         .get()
-      fly
+      http
         .p('hest')
         .cache(10)
         .get()
 
-      expect(Fly.prototype._sendRequest.calls.count()).toBe(1)
+      expect(BrowserRequest.prototype._sendRequest.calls.count()).toBe(1)
 
       setTimeout(() => {
-        expect(Fly.prototype._sendRequest.calls.count()).toBe(1)
+        expect(BrowserRequest.prototype._sendRequest.calls.count()).toBe(1)
 
-        fly
+        http
           .p('hest')
           .cache()
           .get()
 
-        expect(Fly.prototype._sendRequest.calls.count()).toBe(2)
+        expect(BrowserRequest.prototype._sendRequest.calls.count()).toBe(2)
 
         done()
       }, 15)
@@ -279,13 +279,13 @@ describe('request', () => {
 
     it('should throw if asked to cache non-GET requests', () => {
       expect(() => {
-        fly
+        http
           .p('hest')
           .cache()
           .put()
       }).toThrow()
 
-      expect(Fly.prototype._sendRequest.calls.count()).toBe(0)
+      expect(BrowserRequest.prototype._sendRequest.calls.count()).toBe(0)
     })
   })
   describe('FORM', () => {
@@ -293,11 +293,11 @@ describe('request', () => {
       const fieldName = 'fieldName'
       const fieldValue = 'fieldValue'
       it('should set the request header correctly', () => {
-        const instance = fly.append(fieldName, fieldValue)
+        const instance = http.append(fieldName, fieldValue)
         expect(instance._headers['Content-Type']).toEqual('multipart/form-data')
       })
       it('should apeend form data and set the request body', () => {
-        const instance = fly.append(fieldName, fieldValue)
+        const instance = http.append(fieldName, fieldValue)
         expect(instance._formData.length).toEqual(1)
         expect(instance._formData[0][0]).toEqual(fieldName)
         expect(instance._formData[0][1]).toEqual(fieldValue)
@@ -309,11 +309,11 @@ describe('request', () => {
         text: 'abc'
       }
       it('should set the request header correctly', () => {
-        const instance = fly.formData(data)
+        const instance = http.formData(data)
         expect(instance._headers['Content-Type']).toEqual('multipart/form-data')
       })
       it('should convert js object to a FormData and set the request body', () => {
-        const instance = fly.formData(data)
+        const instance = http.formData(data)
         expect(instance._formData.length).toEqual(2)
         expect(instance._formData[0][0]).toEqual('pony')
         expect(instance._formData[0][1]).toEqual(true)
@@ -327,16 +327,16 @@ describe('request', () => {
         tim: { isFat: false }
       }
       it('should convert the input to an url encoded string', () => {
-        const instance = fly.formUrl(input)
+        const instance = http.formUrl(input)
         expect(instance._formUrl).toEqual('pony=true&tim=%7B%22isFat%22%3Afalse%7D')
       })
       it('should skip the conversion part if the input argument is already a string', () => {
         const alreadyEncodedForm = 'pony=true&tim=%7B%22isFat%22%3Afalse%7D'
-        const instance = fly.formUrl(alreadyEncodedForm)
+        const instance = http.formUrl(alreadyEncodedForm)
         expect(instance._formUrl).toEqual('pony=true&tim=%7B%22isFat%22%3Afalse%7D')
       })
       it('should sets the content-type header and body', () => {
-        const instance = fly.formUrl(input)
+        const instance = http.formUrl(input)
         expect(instance._headers['Content-Type']).toEqual('application/x-www-form-urlencoded')
       })
     })

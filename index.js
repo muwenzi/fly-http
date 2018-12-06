@@ -1,4 +1,4 @@
-import Fly from './src/FlyBrowser'
+import Request from './src/BrowserRequest'
 
 const createInstanceMethods = [
   'path',
@@ -21,21 +21,22 @@ const createInstanceMethods = [
   'append',
   'formData',
   'formUrl',
-  'credentials'
+  'credentials',
+  'mode'
 ]
 
 const createInstance = () => {
-  const fly = () => new Fly()
+  const request = () => new Request()
   for (const method of createInstanceMethods) {
-    fly[method] = (...theArgs) => {
-      const instance = new Fly()
+    request[method] = (...theArgs) => {
+      const instance = new Request()
       instance[method](...theArgs)
       return instance
     }
   }
-  return fly
+  return request
 }
 
-export const clearCache = Fly.clearCache
+export const clearCache = Request.clearCache
 
 export default createInstance()

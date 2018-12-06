@@ -1,28 +1,28 @@
-import FlyBase from './FlyBase'
+import Request from './Request'
 import FileSaver from 'file-saver'
 import utils from './utils'
 
 /**
- * FlyBrowser.
- * @extends FlyBase
+ * BrowserRequest.
+ * @extends Request
  * @constructor
  */
-function FlyBrowser () {
-  FlyBase.call(this)
+function BrowserRequest () {
+  Request.call(this)
 }
 
-FlyBrowser.clearCache = function () {
-  FlyBase.clearCache()
+BrowserRequest.clearCache = function () {
+  Request.clearCache()
 }
 
-FlyBrowser.prototype = Object.create(FlyBase.prototype)
+BrowserRequest.prototype = Object.create(Request.prototype)
 
 /**
  * Download GET request as file.
  * @param filename
  * @returns {Promise}
  */
-FlyBrowser.prototype.download = function (fileName) {
+BrowserRequest.prototype.download = function (fileName) {
   this._download = true
   this._downloadAsFilename = fileName
   if (!fileName) {
@@ -35,9 +35,9 @@ FlyBrowser.prototype.download = function (fileName) {
 /**
  * Set Fetch API credentials option.
  * @param {'same-origin'|'include'|'omit'} credentials
- * @returns {FlyBrowser}
+ * @returns {BrowserRequest}
  */
-FlyBrowser.prototype.credentials = function (credentials) {
+BrowserRequest.prototype.credentials = function (credentials) {
   if (['same-origin', 'include', 'omit'].includes(credentials)) {
     this._credentials = credentials
   } else {
@@ -46,7 +46,21 @@ FlyBrowser.prototype.credentials = function (credentials) {
   return this
 }
 
-FlyBrowser.prototype._sendRequest = function (url, method, body, headers) {
+/**
+ * Set Fetch API mode option.
+ * @param {'navigate'|'same-origin'|'no-cors'|'cors'} mode
+ * @returns {BrowserRequest}
+ */
+BrowserRequest.prototype.mode = function (mode) {
+  if (['navigate', 'same-origin', 'no-cors', 'cors'].includes(mode)) {
+    this._mode = mode
+  } else {
+    console.warn('mode must be one of navigate, same-origin, no-cors or cors')
+  }
+  return this
+}
+
+BrowserRequest.prototype._sendRequest = function (url, method, body, headers) {
   return this._browserRequest(url, method, body, headers)
     .then(function (response) {
       return {
@@ -65,11 +79,12 @@ FlyBrowser.prototype._sendRequest = function (url, method, body, headers) {
     })
 }
 
-FlyBrowser.prototype._browserRequest = function (url, method, body, headers) {
+BrowserRequest.prototype._browserRequest = function (url, method, body, headers) {
   return new Promise((resolve, reject) => {
     let form
     const config = {
       credentials: this._credentials,
+      mode: this._mode,
       method: method,
       headers: headers
     }
@@ -116,4 +131,4 @@ FlyBrowser.prototype._browserRequest = function (url, method, body, headers) {
   })
 }
 
-export default FlyBrowser
+export default BrowserRequest
