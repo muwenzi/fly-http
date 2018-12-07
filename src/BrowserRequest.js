@@ -33,16 +33,12 @@ BrowserRequest.prototype.download = function (fileName) {
 }
 
 /**
- * Set Fetch API credentials option.
- * @param {'same-origin'|'include'|'omit'} credentials
+ * Set Fetch API options.
+ * @param {Object} options
  * @returns {BrowserRequest}
  */
-BrowserRequest.prototype.credentials = function (credentials) {
-  if (['same-origin', 'include', 'omit'].includes(credentials)) {
-    this._credentials = credentials
-  } else {
-    console.warn('credentials must be one of same-origin, include or omit')
-  }
+BrowserRequest.prototype.options = function (options) {
+  this._options = options
   return this
 }
 
@@ -83,8 +79,6 @@ BrowserRequest.prototype._browserRequest = function (url, method, body, headers)
   return new Promise((resolve, reject) => {
     let form
     const config = {
-      credentials: this._credentials,
-      mode: this._mode,
       method: method,
       headers: headers
     }
@@ -100,7 +94,7 @@ BrowserRequest.prototype._browserRequest = function (url, method, body, headers)
     if (form || body) {
       config.body = form || body
     }
-    this._xhr = window.fetch(url, config)
+    this._xhr = window.fetch(url, Object.assign(config, this._options))
       .then(res => {
         let p
         if (res.headers.get('Content-Type').includes('application/json')) {

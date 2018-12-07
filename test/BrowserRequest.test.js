@@ -292,10 +292,6 @@ describe('request', () => {
     describe('append()', () => {
       const fieldName = 'fieldName'
       const fieldValue = 'fieldValue'
-      it('should set the request header correctly', () => {
-        const instance = http.append(fieldName, fieldValue)
-        expect(instance._headers['Content-Type']).toEqual('multipart/form-data')
-      })
       it('should apeend form data and set the request body', () => {
         const instance = http.append(fieldName, fieldValue)
         expect(instance._formData.length).toEqual(1)
@@ -308,10 +304,6 @@ describe('request', () => {
         pony: true,
         text: 'abc'
       }
-      it('should set the request header correctly', () => {
-        const instance = http.formData(data)
-        expect(instance._headers['Content-Type']).toEqual('multipart/form-data')
-      })
       it('should convert js object to a FormData and set the request body', () => {
         const instance = http.formData(data)
         expect(instance._formData.length).toEqual(2)

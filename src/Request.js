@@ -7,10 +7,7 @@ import utils from './utils'
 function Request () {
   this._path = []
   this._params = {}
-  this._headers = {
-    'Content-Type': 'application/json',
-    'Accept': 'application/json'
-  }
+  this._headers = {}
   this._formData = []
   this._formUrl = ''
 }
@@ -33,8 +30,7 @@ Request.prototype = {
   _processData: true,
   _formData: [],
   _formUrl: '',
-  _credentials: 'same-origin',
-  _mode: 'no-cors',
+  _options: {},
   /**
    * Add query parameter to request url.
    * @param key {String}
@@ -62,7 +58,6 @@ Request.prototype = {
     if (arguments.length) {
       this._formData.push(arguments)
     }
-    this.content('multipart/form-data')
     return this
   },
   /**
@@ -280,6 +275,14 @@ Request.prototype = {
    */
   send: function (method, body) {
     let url = buildUrl(this._path, this._params)
+
+    if (!this._headers['Content-Type']) {
+      body ? this.content('application/json') : this.content('text/plain')
+    }
+
+    if (!this._headers['Accept']) {
+      this.accept('application/json')
+    }
 
     if (body && this._headers['Content-Type'] === 'application/json') {
       body = JSON.stringify(body)

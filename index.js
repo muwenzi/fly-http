@@ -20,9 +20,7 @@ const createInstanceMethods = [
   'cache',
   'append',
   'formData',
-  'formUrl',
-  'credentials',
-  'mode'
+  'formUrl'
 ]
 
 const createInstance = () => {
