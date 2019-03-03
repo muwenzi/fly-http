@@ -3,8 +3,7 @@
     <br>
     <br>
     <br>
-    <img width="200" src="https://user-images.githubusercontent.com/12554487/45917080-caba8180-bea2-11e8-8e1b-f0e27f478883.png" alt="fly logo">
-    <br>
+    <img width="300" src="https://user-images.githubusercontent.com/12554487/53678668-6b885500-3cfd-11e9-97dc-17705787fd1e.png" alt="http logo">
     <br>
     <br>
     <br>
@@ -33,13 +32,13 @@ The latest version of Chrome, Firefox, and Safari.
 ## Install
 
 ```sh
-npm i fly-http
+npm i http-chain
 ```
 
 ## Example
 
 ```js
-import http from 'fly-http'
+import http from 'http-chain'
 
 (async () => {
     const res = await http
@@ -469,7 +468,7 @@ Clear the request cache map.
 <summary>Examples</summary>
 
 ```js
-import { clearCache } from 'fly-http'
+import { clearCache } from 'http-chain'
 ​
 clearCache()
 ```
@@ -566,15 +565,15 @@ http
 
 MIT © [Kimi Gao](https://github.com/muwenzi)
 
-[travis-url]: https://travis-ci.org/muwenzi/fly-http
-[travis-image]: https://img.shields.io/travis/muwenzi/fly-http/master.svg?style=flat-square
-[npm-version-url]: https://www.npmjs.com/package/fly-http
-[npm-version-image]: https://img.shields.io/npm/v/fly-http.svg?style=flat-square
-[npm-downloads-url]: https://www.npmjs.com/package/fly-http
-[npm-downloads-image]: https://img.shields.io/npm/dt/fly-http.svg?style=flat-square
-[license-url]: https://github.com/muwenzi/fly-http/blob/master/LICENSE
-[license-image]: https://img.shields.io/github/license/muwenzi/fly-http.svg?style=flat-square
-[changelog-url]: https://github.com/muwenzi/fly-http/blob/master/CHANGELOG.md
+[travis-url]: https://travis-ci.org/muwenzi/http-chain
+[travis-image]: https://img.shields.io/travis/muwenzi/http-chain/master.svg?style=flat-square
+[npm-version-url]: https://www.npmjs.com/package/http-chain
+[npm-version-image]: https://img.shields.io/npm/v/http-chain.svg?style=flat-square
+[npm-downloads-url]: https://www.npmjs.com/package/http-chain
+[npm-downloads-image]: https://img.shields.io/npm/dt/http-chain.svg?style=flat-square
+[license-url]: https://github.com/muwenzi/http-chain/blob/master/LICENSE
+[license-image]: https://img.shields.io/github/license/muwenzi/http-chain.svg?style=flat-square
+[changelog-url]: https://github.com/muwenzi/http-chain/blob/master/CHANGELOG.md
 [fetch-api-url]: https://developer.mozilla.org/en-US/docs/Web/API/WindowOrWorkerGlobalScope/fetch#Parameters
 [back-to-top-url]: #api-preview
 [path-url]: #pathpath-string--number
