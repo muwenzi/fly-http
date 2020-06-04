@@ -1,5 +1,5 @@
 {
-  "name": "http-chain",
+  "name": "@http-util/request",
   "version": "0.1.0-alpha.2",
   "description": "Chained and declarative HTTP client based on the browser Fetch API",
   "main": "index.js",
@@ -56,6 +56,7 @@
     "eslint": "^7.0.0",
     "husky": "^4.0.0",
     "jest": "^23.1.0",
+    "lint-staged": "^10.2.9",
     "lodash": "^4.17.10",
     "standard": "^14.3.1",
     "standard-version": "^7.0.1"

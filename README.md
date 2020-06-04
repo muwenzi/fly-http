@@ -3,7 +3,7 @@
     <br>
     <br>
     <br>
-    <img width="300" src="https://user-images.githubusercontent.com/12554487/53678668-6b885500-3cfd-11e9-97dc-17705787fd1e.png" alt="http logo">
+    <img width="300" src="https://user-images.githubusercontent.com/12554487/83770922-3dd64c80-a6b4-11ea-9c4d-f7ae98336739.jpg" alt="http request logo">
     <br>
     <br>
     <br>
@@ -32,16 +32,16 @@ The latest version of Chrome, Firefox, and Safari.
 ## Install
 
 ```sh
-npm i http-chain
+npm i @http-util/request
 ```
 
 ## Example
 
 ```js
-import http from 'http-chain'
+import request from '@http-util/request'
 
 (async () => {
-    const res = await http
+    const res = await request
       .p('https://cnodejs.org/api/v1')
       .p('topics')
       .q('page', 2)
@@ -101,7 +101,7 @@ Add path segment to request url including non-encoded path segment.
 <summary>Examples</summary>
 
 ```js
-http
+request
   .path('https://cnodejs.org')
   .path('api')
   .path('v1')
@@ -112,7 +112,7 @@ http
 you can also make one path with the slash:
 
 ```js
-http
+request
   .path('https://cnodejs.org/api/v1/topics')
   .get()
 ```
@@ -129,7 +129,7 @@ Alias for path().
 <summary>Examples</summary>
 
 ```js
-http
+request
   .p('https://cnodejs.org')
   .p('api')
   .p('v1')
@@ -148,7 +148,7 @@ Add query parameter to request url.
 <summary>Examples</summary>
 
 ```js
-http
+request
   .path('https://cnodejs.org/api/v1')
   .path('topics')
   .query('page', 2)
@@ -169,7 +169,7 @@ Alias for query().
 <summary>Examples</summary>
 
 ```js
-http
+request
   .p('https://cnodejs.org/api/v1')
   .p('topics')
   .q('page', 2)
@@ -190,7 +190,7 @@ Accept object as params.
 <summary>Examples</summary>
 
 ```js
-http
+request
   .p('https://cnodejs.org/api/v1')
   .p('topics')
   .queryAll({
@@ -213,7 +213,7 @@ Add header to request.
 <summary>Examples</summary>
 
 ```js
-http
+request
   .p('account')
   .p('users')
   .p(userId)
@@ -329,7 +329,7 @@ Append formData params and set the content-type header to `multipart/form-data` 
 <summary>Examples</summary>
 
 ```js
-http
+request
   .path('flipper/v0/flip')
   .path('order')
   .append('quotation', file)
@@ -354,7 +354,7 @@ const data = {
   text: 'abc'
 }
 ​
-http
+request
   .path('...')
   .formData(data)
   .post()
@@ -378,8 +378,8 @@ const input = {
 }
 const alreadyEncodedForm = 'pony=true&tim=%7B%22isFat%22%3Afalse%7D'
 ​
-http.path('...').formUrl(form).post()
-http.path('...').formUrl(alreadyEncodedForm).post()
+request.path('...').formUrl(form).post()
+request.path('...').formUrl(alreadyEncodedForm).post()
 ```
 
 </details>
@@ -468,7 +468,7 @@ Clear the request cache map.
 <summary>Examples</summary>
 
 ```js
-import { clearCache } from 'http-chain'
+import { clearCache } from '@http-util/request'
 ​
 clearCache()
 ```
@@ -493,7 +493,7 @@ Return a promise for the response (including status code and headers), rather th
 <summary>Examples</summary>
 
 ```js
-http
+request
   .path(url)
   .enrichResponse()
   .get()
@@ -516,17 +516,17 @@ File will be named by following priority:
 
 ```js
 // file will be downloaded and named 'prop-types.js'
-http
+request
   .p('https://cdn.bootcss.com/prop-types/15.6.1/prop-types.js')
   .download()
 ​
 // file will be downloaded and named 'types.js'
-http
+request
   .p('https://cdn.bootcss.com/prop-types/15.6.1/prop-types.js')
   .download('types.js')
 ​
 // you can also download file by chained path style
-http
+request
   .p('https://cdn.bootcss.com')
   .p('prop-types')
   .p('15.6.1')
@@ -547,7 +547,7 @@ Set [Fetch API][fetch-api-url] options, this `options` method will replace other
 <summary>Examples</summary>
 
 ```js
-http
+request
   .p('...')
   .options({credentials: 'include'})
   .post(body)
@@ -563,17 +563,17 @@ http
 
 ## License
 
-MIT © [Kimi Gao](https://github.com/muwenzi)
+MIT © [Kimi Gao](https://github.com/kimi-gao)
 
-[travis-url]: https://travis-ci.org/muwenzi/http-chain
-[travis-image]: https://img.shields.io/travis/muwenzi/http-chain/master.svg?style=flat-square
-[npm-version-url]: https://www.npmjs.com/package/http-chain
-[npm-version-image]: https://img.shields.io/npm/v/http-chain.svg?style=flat-square
-[npm-downloads-url]: https://www.npmjs.com/package/http-chain
-[npm-downloads-image]: https://img.shields.io/npm/dt/http-chain.svg?style=flat-square
-[license-url]: https://github.com/muwenzi/http-chain/blob/master/LICENSE
-[license-image]: https://img.shields.io/github/license/muwenzi/http-chain.svg?style=flat-square
-[changelog-url]: https://github.com/muwenzi/http-chain/blob/master/CHANGELOG.md
+[travis-url]: https://travis-ci.org/http-util/request
+[travis-image]: https://img.shields.io/travis/http-util/request/master.svg?style=flat-square
+[npm-version-url]: https://www.npmjs.com/package/@http-util/request
+[npm-version-image]: https://img.shields.io/npm/v/@http-util/request.svg?style=flat-square
+[npm-downloads-url]: https://www.npmjs.com/package/@http-util/request
+[npm-downloads-image]: https://img.shields.io/npm/dt/@http-util/request.svg?style=flat-square
+[license-url]: https://github.com/http-util/request/blob/master/LICENSE
+[license-image]: https://img.shields.io/github/license/http-util/request.svg?style=flat-square
+[changelog-url]: https://github.com/http-util/request/blob/master/CHANGELOG.md
 [fetch-api-url]: https://developer.mozilla.org/en-US/docs/Web/API/WindowOrWorkerGlobalScope/fetch#Parameters
 [back-to-top-url]: #api-preview
 [path-url]: #pathpath-string--number

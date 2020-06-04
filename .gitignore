@@ -66,6 +66,3 @@ typings/
 # IDE
 .vscode/
 .idea/
-
-# npm
-package-lock.json
