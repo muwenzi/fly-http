@@ -30,7 +30,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/muwenzi/http-chain.git"
+    "url": "git+https://github.com/http-util/request.git"
   },
   "keywords": [
     "http",
@@ -43,9 +43,9 @@
   "author": "Kimi Gao",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/muwenzi/http-chain/issues"
+    "url": "https://github.com/http-util/request/issues"
   },
-  "homepage": "https://github.com/muwenzi/http-chain",
+  "homepage": "https://github.com/http-util/request",
   "dependencies": {
     "file-saver": "^2.0.2"
   },
