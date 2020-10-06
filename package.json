@@ -1,6 +1,6 @@
 {
     "name": "@http-util/request",
-    "version": "0.1.0-alpha.2",
+    "version": "0.1.0",
     "description": "Chained and declarative HTTP client based on the browser Fetch API",
     "main": "index.js",
     "files": [
