@@ -1,64 +1,67 @@
 {
-  "name": "@http-util/request",
-  "version": "0.1.0-alpha.2",
-  "description": "Chained and declarative HTTP client based on the browser Fetch API",
-  "main": "index.js",
-  "files": [
-    "src"
-  ],
-  "scripts": {
-    "test": "jest",
-    "commit": "git-cz",
-    "release": "standard-version"
-  },
-  "config": {
-    "commitizen": {
-      "path": "node_modules/cz-conventional-changelog"
+    "name": "@http-util/request",
+    "version": "0.1.0-alpha.2",
+    "description": "Chained and declarative HTTP client based on the browser Fetch API",
+    "main": "index.js",
+    "files": [
+        "src"
+    ],
+    "scripts": {
+        "test": "jest",
+        "commit": "git-cz",
+        "release": "standard-version"
+    },
+    "config": {
+        "commitizen": {
+            "path": "node_modules/cz-conventional-changelog"
+        }
+    },
+    "husky": {
+        "hooks": {
+            "pre-commit": "lint-staged",
+            "postcommit": "git update-index --again"
+        }
+    },
+    "lint-staged": {
+        "*.js": [
+            "eslint --fix",
+            "git add"
+        ]
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/http-util/request.git"
+    },
+    "keywords": [
+        "http",
+        "http",
+        "rest",
+        "request",
+        "chain",
+        "fetch"
+    ],
+    "author": "Kimi Gao",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/http-util/request/issues"
+    },
+    "publishConfig": {
+        "registry": "https://npm.pkg.github.com/"
+    },
+    "homepage": "https://github.com/http-util/request",
+    "dependencies": {
+        "file-saver": "^2.0.2"
+    },
+    "devDependencies": {
+        "babel-preset-env": "^1.7.0",
+        "commitizen": "^4.0.3",
+        "cz-conventional-changelog": "^3.0.2",
+        "eslint": "^7.0.0",
+        "husky": "^4.0.0",
+        "jest": "^23.1.0",
+        "lint-staged": "^10.2.9",
+        "lodash": "^4.17.10",
+        "standard": "^14.3.1",
+        "standard-version": "^9.0.0"
     }
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged",
-      "postcommit": "git update-index --again"
-    }
-  },
-  "lint-staged": {
-    "*.js": [
-      "eslint --fix",
-      "git add"
-    ]
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/http-util/request.git"
-  },
-  "keywords": [
-    "http",
-    "http",
-    "rest",
-    "request",
-    "chain",
-    "fetch"
-  ],
-  "author": "Kimi Gao",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/http-util/request/issues"
-  },
-  "homepage": "https://github.com/http-util/request",
-  "dependencies": {
-    "file-saver": "^2.0.2"
-  },
-  "devDependencies": {
-    "babel-preset-env": "^1.7.0",
-    "commitizen": "^4.0.3",
-    "cz-conventional-changelog": "^3.0.2",
-    "eslint": "^7.0.0",
-    "husky": "^4.0.0",
-    "jest": "^23.1.0",
-    "lint-staged": "^10.2.9",
-    "lodash": "^4.17.10",
-    "standard": "^14.3.1",
-    "standard-version": "^9.0.0"
-  }
 }
