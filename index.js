@@ -16,7 +16,7 @@ const createInstanceMethods = [
   'accept',
   'asText',
   'asXML',
-  'enrichResponse',
+  'asRaw',
   'cache',
   'append',
   'formData',

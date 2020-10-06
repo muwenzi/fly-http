@@ -190,7 +190,7 @@ Request.prototype = {
    * Return a promise for the response (including status code and headers), rather than for just the response data.
    * @returns {Request}
    */
-  enrichResponse: function () {
+  asRaw: function () {
     this._raw = true
     return this
   },

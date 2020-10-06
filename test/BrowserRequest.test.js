@@ -25,10 +25,10 @@ describe('response handling', () => {
     })
   })
 
-  it('with enrichResponse() should return a promise for the normalized response data.', done => {
+  it('with asRaw() should return a promise for the normalized response data.', done => {
     let request = http
       .p('hest')
-      .enrichResponse()
+      .asRaw()
       .get()
 
     respond({ pony: true }, 200, { 'x-pony': 'Yes' })

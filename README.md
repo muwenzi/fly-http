@@ -87,7 +87,7 @@ import request from '@http-util/request'
   - [clearCache][clearCache-url]()
 - **OTHER**
   - [beforeSend][beforeSend-url](callback: func)
-  - [enrichResponse][enrichResponse-url]()
+  - [asRaw][asRaw-url]()
   - [download][download-url](fileName?: string)
   - [options][options-url](options: object)
 
@@ -485,7 +485,7 @@ Note: It can only change headers and body of the request.
 
 [⬆ Back to top][back-to-top-url]
 
-### enrichResponse()
+### asRaw()
 
 Return a promise for the response (including status code and headers), rather than for just the response data.
 
@@ -495,7 +495,7 @@ Return a promise for the response (including status code and headers), rather th
 ```js
 request
   .path(url)
-  .enrichResponse()
+  .asRaw()
   .get()
 ```
 
@@ -603,5 +603,5 @@ MIT © [Kimi Gao](https://github.com/kimi-gao)
 [clearCache-url]: #clearcache
 [beforeSend-url]: #beforesendcallback-func
 [options-url]: #optionsoptions-object
-[enrichResponse-url]: #enrichresponse
+[asRaw-url]: #asRaw
 [download-url]: #downloadfilename-string
